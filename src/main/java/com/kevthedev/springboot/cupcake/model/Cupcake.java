@@ -8,7 +8,7 @@ public class Cupcake {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column()
-    private long id;
+    private Long id;
 
     @Column(nullable = false)
     private String flavor;
@@ -20,15 +20,25 @@ public class Cupcake {
     private int rating;
 
     @Column(nullable = false)
-    private String image = "https://tinyurl.com/demo-cupcake";
+    private String image;
 
-    public Cupcake() {}
+    // Default image URL
+    private static final String DEFAULT_IMAGE_URL = "https://tinyurl.com/demo-cupcake";
+
+
+    public Cupcake() {
+        this.image = DEFAULT_IMAGE_URL;
+    }
 
     public Cupcake(String flavor, String size, int rating, String image) {
         this.flavor = flavor;
         this.size = size;
         this.rating = rating;
-        this.image = image;
+        this.image = (image == null) ? DEFAULT_IMAGE_URL : image;
+    }
+
+    public Long getId() {
+        return this.id;
     }
 
     public String getFlavor() {
