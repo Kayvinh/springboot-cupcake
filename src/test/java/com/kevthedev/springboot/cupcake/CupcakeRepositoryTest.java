@@ -67,14 +67,12 @@ public class CupcakeRepositoryTest {
 
     @Test
     public void testUpdateCupcake() {
-        // Save an entity
+
         Cupcake cupcake = new Cupcake("ToUpdate", "Medium", 2, "https://example.com/to-update.jpg");
         cupcakeRepository.save(cupcake);
 
-        // Create an updated Cupcake with new values
         Cupcake updatedCupcake = new Cupcake("UpdatedFlavor", "UpdatedSize", 4, "https://example.com/updated.jpg");
 
-        // Update the existing entity
         Optional<Cupcake> foundCupcake = cupcakeRepository.findById(cupcake.getId());
         foundCupcake.ifPresent(existingCupcake -> {
             existingCupcake.setFlavor(updatedCupcake.getFlavor());
@@ -85,7 +83,6 @@ public class CupcakeRepositoryTest {
             cupcakeRepository.save(existingCupcake);
         });
 
-        // Verify that the entity is updated
         Optional<Cupcake> updatedCupcakeOptional = cupcakeRepository.findById(cupcake.getId());
         assertTrue(updatedCupcakeOptional.isPresent());
         Cupcake result = updatedCupcakeOptional.get();
@@ -99,17 +96,13 @@ public class CupcakeRepositoryTest {
 
     @Test
     public void testDeleteCupcake() {
-        // Save an entity
+
         Cupcake cupcake = new Cupcake("DeleteMe", "Small", 3, "https://example.com/delete-me.jpg");
         cupcakeRepository.save(cupcake);
 
-        // Delete the saved entity by ID
         cupcakeRepository.deleteById(cupcake.getId());
 
-        // Try to find the deleted entity by ID
         Optional<Cupcake> foundCupcake = cupcakeRepository.findById(cupcake.getId());
-
-        // Assert that the entity was not found
         assertFalse(foundCupcake.isPresent());
     }
 }

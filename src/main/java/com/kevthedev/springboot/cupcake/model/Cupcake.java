@@ -22,7 +22,6 @@ public class Cupcake {
     @Column(nullable = false)
     private String image;
 
-    // Default image URL
     private static final String DEFAULT_IMAGE_URL = "https://tinyurl.com/demo-cupcake";
 
 

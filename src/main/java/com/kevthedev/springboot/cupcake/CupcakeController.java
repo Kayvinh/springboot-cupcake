@@ -22,9 +22,9 @@ public class CupcakeController {
         this.cupcakeService = cupcakeService;
     }
 
-    /*
+    /**
      * Route for all cupcakes
-     * Returns [{id, flavor, size, rating, image}]
+     * Returns [{id, flavor, size, rating, image},...]
      */
     @GetMapping("/cupcakes")
     public List<Cupcake> getCupcakes() {
@@ -40,17 +40,30 @@ public class CupcakeController {
         return cupcakeService.getCupcake(id);
     }
 
+    /**
+     * Route to create cupcake
+     * Returns upon success {id, flavor, size, rating, image}
+     */
     @PostMapping("/cupcakes")
-    public Cupcake createCupcake(@RequestBody Cupcake newCupcake) {
-        return cupcakeService.createCupcake(newCupcake);
+    public ResponseEntity<Cupcake> createCupcake(@RequestBody Cupcake newCupcake) {
+        Cupcake cupcake = cupcakeService.createCupcake(newCupcake);
+        return ResponseEntity.ok(cupcake);
     }
 
+    /**
+     * Route to edit cupcake
+     * Returns upon success {id, flavor, size, rating, image}
+     */
     @PatchMapping("/cupcakes/{id}")
     public ResponseEntity<Cupcake> updateCupcake(@PathVariable Long id, @RequestBody Cupcake updatedCupcake) {
         Cupcake cupcake = cupcakeService.updateCupcake(id, updatedCupcake);
         return ResponseEntity.ok(cupcake);
     }
 
+    /**
+     * Route to delete cupcake
+     * Returns success message upon deletion
+     */
     @DeleteMapping("/cupcakes/{id}")
     public void deleteCupcake(@PathVariable Long id) {
         cupcakeService.deleteCupcake(id);
