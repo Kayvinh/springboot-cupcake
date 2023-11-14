@@ -8,12 +8,14 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kevthedev.springboot.cupcake.service.CupcakeService;
 import com.kevthedev.springboot.cupcake.model.Cupcake;
+
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -68,7 +70,9 @@ public class CupcakeController {
      * Returns success message upon deletion
      */
     @DeleteMapping("/cupcakes/{id}")
-    public void deleteCupcake(@PathVariable Long id) {
+    public ResponseEntity<Map<String, String>> deleteCupcake(@PathVariable Long id) {
         cupcakeService.deleteCupcake(id);
+        Map<String, String> response = Collections.singletonMap("message", "Cupcake deleted successfully");
+        return ResponseEntity.ok(response);
     }
 }
